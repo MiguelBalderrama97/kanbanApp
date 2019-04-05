@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app='kanbanApp' lang="en"> <!--AGREGAR DIRECTIVA ng-app Y NOMBRARLA COMO EL MODULO-->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Kanban Board</title>
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js'></script>
+        <script src='app.js'></script>
+    </head>
+    <body>
+        <div ng-controller='kanbanController as KC'> <!--AGREGAR EL CONTROLADOR-->
+            <!-- <p>{{KC.demo}}</p>
+            <p>{{demoview}}</p> -->
+            <!-- <input type="text" ng-model="demoview.name"> CREAR UN OBJETO CON UN ATRIBUTO NAME Y LA P DE ARRIBA MUESTRA UN JSON -->
+            <!-- <button ng-click="KC.show()"></button>  -->
+
+            <h1>Kanban Board</h1>
+            <form ng-submit="KC.addTask();" >
+                <span>Nombre:</span>
+                <input type="text" ng-model="newObj.name"><br><br>
+                <span>Descripcion:</span>
+                <input type="text" ng-model="newObj.desc">
+                <input type="submit" value="Add">
+            </form>
+            <!-- <p>{{KC.tasks}}</p> COMPROBAR LOS VALORES DE TODO EL ARREGLO -->
+
+            <h3>TODO</h3>
+            <ul>
+                <li ng-repeat="task in KC.tasks | filter:{status:1}"> <!--CICLO: EL PRIMER TASKS ES LA VARIABLE QUE QUERAMOS-->
+                    <span>{{task.name}}</span> 
+                    <button ng-click="KC.next(task);">Doing</button>
+                </li>
+            </ul>
+            <h3>DOING</h3>
+            <ul>
+                <li ng-repeat="task in KC.tasks | filter:{status:2}"> <!--CICLO: EL PRIMER TASKS ES LA VARIABLE QUE QUERAMOS-->
+                    <span>{{task.name}}</span>
+                    <button ng-click="KC.previous(task);">ToDo</button>
+                    <button ng-click="KC.next(task);">Done</button>
+                </li>
+            </ul>
+            <h3>DONE</h3>
+            <ul>
+                <li ng-repeat="task in KC.tasks | filter:{status:3}"> <!--CICLO: EL PRIMER TASKS ES LA VARIABLE QUE QUERAMOS-->
+                    <span>{{task.name}}</span>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
